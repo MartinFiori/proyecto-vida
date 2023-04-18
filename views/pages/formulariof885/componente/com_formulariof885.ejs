@@ -65,7 +65,7 @@
       aria-labelledby="agregarCuil-tab"
     >
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="cuil">Agregar CUIL:</label>
             <input
@@ -77,7 +77,24 @@
             />
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <div class="form-group d-flex flex-column">
+            <label for="select-administrada" class="form-label"
+              >Seleccione una operación:</label
+            >
+            <select
+              class="form-control"
+              id="select-administrada"
+              name="select-administrada"
+              aria-label="Default select example"
+              aria-placeholder="Seleccionar..."
+            >
+              <option value="default" selected>Seleccione una opción</option>
+              <option value="anulacion_alta">Anulación de alta</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
           <div class="form-group d-flex flex-column">
             <label for="operacion" class="form-label"
               >Seleccione una operación:</label
@@ -102,7 +119,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <button
             type="submit"
             class="btn btn-success mt-4"
@@ -282,7 +299,6 @@
                   readonly
                 />
               </div>
-              <!-- no -->
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -532,12 +548,6 @@
       }
 
       function EditarCuils() {
-        const editarCuilsTab = document.getElementById("editarCuils-tab");
-        // if (cuils.length) {
-        //   editarCuilsTab.style.display = "block";
-        // } else {
-        //   editarCuilsTab.style.display = "none";
-        // }
         // funcion que habilita la seccion de editar cuils si hay o no algo en el array de los cuils
         cuils.length
           ? $("#editarCuils-tab").show()
