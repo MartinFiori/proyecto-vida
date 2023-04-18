@@ -1,0 +1,21 @@
+.card-body {
+    margin-top: -35px;
+    padding: 0px;
+}
+
+.panel {
+    box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, .25);
+    border-radius: 5px;
+}
+
+.loader {
+    position: absolute;
+    top: 39%;
+    left: 47%;
+    z-index: inherit;
+    display: block;
+    width: 75px;
+    height: 75px;
+}
+
+

@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+}
+
+.form-group {
+    height: 60px !important;
+}
+
+.form-control {
+    font-size: 12px !important;
+}
+
+:root {
+    --tamanoTexto: 10px;
+}
+
+.tamanoTexto {
+    font-size: var(--tamanoTexto);
+}
+
+.table-bordered thead td,
+.table-bordered thead th {
+    border-bottom-width: 2px;
+}
+
+.loader {
+    position: absolute;
+    top: 39%;
+    left: 47%;
+    z-index: inherit;
+    display: block;
+    width: 150px;
+    height: 150px;
+}
+
+li {
+    font-size: var(--tamanoTexto);
+}
+
+span {
+    font-size: var(--tamanoTexto);
+}
+
+.table-bordered td,
+.table-bordered th {
+    font-size: var(--tamanoTexto) !important;
+    border: 1px solid #dee2e6;
+}
+
+.spinner-border {
+    width: 5rem !important;
+    height: 5rem !important;
+}
+
+.containerOwnApp {
+    box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.62);
+    padding-top: 15px;
+}
+
+.login-page {
+    padding: 18% 0 0;
+    margin: 0 auto 100px;
+    max-width: 360px;
+    position: relative;
+}
+
+.login-form {
+    box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.62);
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    min-width: 350px;
+}
+
+.login-form-header {
+    padding-top: 16px;
+}
+
+.login-from-row {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.login-from-row input {
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+}
+
+.login-from-row input::placeholder {
+    color: rgb(63, 63, 63);
+}
+
+.login-form-font-header {
+    font-size: 30px;
+    font-weight: 700;
+    color: #007c9b;
+}
+
+.background {
+    background-image: url("../assets/images/pexels.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.btn.btn-info {
+    width: 100%;
+}
+.datepicker{
+    top: 250px !important;  
+}

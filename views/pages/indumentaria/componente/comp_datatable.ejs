@@ -1,0 +1,202 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        height: 100vh;
+    }
+
+    .form-group {
+        height: 60px !important;
+    }
+
+    .form-control {
+        font-size: 12px !important;
+    }
+
+    :root {
+        --tamanoTexto: 10px;
+    }
+
+    .tamanoTexto {
+        font-size: var(--tamanoTexto);
+    }
+
+    .table-bordered thead td,
+    .table-bordered thead th {
+        border-bottom-width: 2px;
+    }
+
+    .loader {
+        position: absolute;
+        top: 39%;
+        left: 47%;
+        z-index: inherit;
+        display: block;
+        width: 150px;
+        height: 150px;
+    }
+
+    li {
+        font-size: var(--tamanoTexto);
+    }
+
+    span {
+        font-size: var(--tamanoTexto);
+    }
+
+    .table-bordered td,
+    .table-bordered th {
+        font-size: var(--tamanoTexto) !important;
+        border: 1px solid #dee2e6;
+    }
+
+    .spinner-border {
+        width: 5rem !important;
+        height: 5rem !important;
+    }
+
+    .containerOwnApp {
+        box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.62);
+        padding-top: 15px;
+    }
+
+    .login-page {
+        padding: 18% 0 0;
+        margin: 0 auto 100px;
+        max-width: 360px;
+        position: relative;
+    }
+
+    .login-form {
+        box-shadow: 0 0 27px 0 rgba(84, 84, 84, 0.62);
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 4px;
+        min-width: 350px;
+    }
+
+    .login-form-header {
+        padding-top: 16px;
+    }
+
+    .login-from-row {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .login-from-row input {
+        background-color: rgba(255, 255, 255, 0.4);
+        border: none;
+    }
+
+    .login-from-row input::placeholder {
+        color: rgb(63, 63, 63);
+    }
+
+    .login-form-font-header {
+        font-size: 30px;
+        font-weight: 700;
+        color: #007c9b;
+    }
+
+    .background {
+        background-image: url("../assets/images/pexels.jpg");
+        background-size: cover;
+        height: 100vh;
+    }
+
+    .btn.btn-info {
+        width: 100%;
+    }
+
+    .datepicker {
+        top: 250px !important;
+    }
+</style>
+
+<head>
+    <link rel="stylesheet" href="./../plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <script type="text/javascript" src="./../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="./../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+</head>
+<button type="button" id="eliminardatatabel" hidden>destroy</button>
+<table id="data-table-combine" class="table table-hover table-bordered nowrap table-cursor" width="100%">
+    <thead></thead>
+    <tbody></tbody>
+</table>
+<!-- script -->
+<script>
+    function crearTablaCustom(entidad, cuil) {
+        $('#loader2').show()
+        ajax("GET", "comp_datatable", {
+            "entidad": entidad,
+            "cuil": cuil
+        }, function (r) {
+            let elementDatatable;
+            if (!$("#data-table-combine")) {
+                let iframes = document.querySelector("iframe"); //te da los Iframes de la pagina
+                let iframeDocument = iframes.contentWindow.document;
+                elementDatatable = iframeDocument.querySelector("#data-table-combine");
+                console.log("Con iframe");
+
+            } else {
+                console.log("Sin iframe");
+                elementDatatable = document.querySelector("#data-table-combine");
+            }
+            console.log(r)
+
+            $('#loader2').hide()
+            if (r.datable.length > 0) {
+                let tabla = $(elementDatatable).dataTable({
+                    language: language,
+                    scrollY: "50vh",
+                    paging: true,
+                    height: 800,
+                    responsive: true,
+                    data: r.registros,
+                    columns: r.datable,
+                    searching: true
+                });
+
+                $('#data-table-combine_wrapper > div:nth-child(1) > div:nth-child(1)').removeClass()
+                $('#data-table-combine_wrapper > div:nth-child(1) > div:nth-child(1)').addClass('pl-3')
+
+                $(elementDatatable, 'tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        tabla.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                        $(this).row(this).text()
+                    }
+                });
+
+                $('#eliminardatatabel').click(function () {
+                    if ($.fn.DataTable.isDataTable('#data-table-combine')) {
+                        $('#data-table-combine').DataTable().destroy();
+                    }
+                    $('#data-table-combine tbody').empty();
+                });
+
+            }else{
+
+                alert('Este cuit no tiene Indumentaria registrada')
+            }
+        })
+    };
+
+</script>
+</body>

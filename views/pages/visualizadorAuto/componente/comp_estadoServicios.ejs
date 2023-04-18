@@ -1,0 +1,111 @@
+<style>
+    .panel {
+        box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, .25);
+        border-radius: 5px;
+    }
+</style>
+<div class="row panel container-fluid">
+    <div class="row container-fluid d-flex justify-content-between align-items-center" style="padding-bottom: 1rem;">
+        <h3 class="my-4 mx-2 text-info">Estado de los servicios</h3>
+        <h6 class="my-4 mx-2 text-white d-flex list-group-item" style="
+        background-color: #28a745!important;
+        border-radius: 5px;min-width:270px
+    ">Altas Totales de ADPBOT : &nbsp;&nbsp;<div id="aceptados_altas"></div></h6>
+    </div>
+
+    <div class="contenedorPadre d-flex flex-column col-12 mb-5">
+        <div class="contenedorBotones">
+            <div class="row d-flex justify-content-between align-items-center">
+                <div class="col">
+                    <div class="btn btn-lg btn-block" id="btnEstadoAFIP" style="font-size:0.9em">VALIDANDO AFIP
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="btn btn-lg btn-block" id="btnEstadoAltaTemprana" style="font-size:0.9em">AFIP
+                        ALTA TEMPRANA</div>
+                </div>
+                <div class="col">
+                    <div class="btn btn-lg btn-block" id="btnEstadoCVIKTNA" style="font-size:0.9em">CVI/KTNA
+                    </div>
+                </div>
+            </div>
+            <div class="row  d-flex justify-content-between align-items-center">
+                <div class="col text-center pt-2"></div>
+                <div class="col text-center pt-2"></div>
+                <div class="col text-center pt-2">Proximamente...</div>
+            </div>
+        </div>
+        <div class="contenedorEstadistica mt-4">
+            <div class="row d-flex justify-content-between align-items-center">
+                <div class="col-4">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-info text-white" aria-current="true"> <strong id="hora_sin_error"
+                                > ESTADISTICAS PROCESADOS SIN ERROR
+                            </strong>
+                        </li>
+                        <li id="aceptados_altas_hoy" class="list-group-item" style="min-height: 3rem;"></li>
+                        <li id="aceptados_modificaciones" class="list-group-item" style="min-height: 3rem;">Modificaciones 0 - Proximamente...
+                        </li>
+                        <li id="aceptados_bajas" class="list-group-item" style="min-height: 3rem;">Bajas 0 - Proximamente...</li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-info text-white" aria-current="true"> <strong id="hora_con_error"
+                                > ESTADISTICAS PROCESADOS CON ERROR
+                            </strong> </li>
+                            <li id="procesados_con_alta_vigente" class="list-group-item"style="min-height: 3rem;" ></li>
+                            <li id="procesados_con_inconsistencia_cuil" class="list-group-item"style="min-height: 3rem;" ></li>
+                            <li id="procesos_con_errores" class="list-group-item"style="min-height: 3rem;" ></li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-info text-white" aria-current="true"> <strong id="hora_top"
+                                > ESTADISTICAS TOP 3 ALTAS POR SUCURSAL
+                            </strong> </li>
+                            <li id="sucursal_1" class="list-group-item" style="min-height: 3rem;"></li>
+                            <li id="sucursal_2" class="list-group-item" style="min-height: 3rem;"></li>
+                            <li id="sucursal_3" class="list-group-item" style="min-height: 3rem;"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="contenedorTabla col-12">
+        <h3 class="ml-2 text-info">Listado de transacciones en vivo</h3>
+        <div class="col-12 my-3" id="transacciones">
+            <div class="content-header">
+                <div class="content-header">
+                    <div class="card-body" style="display: block;">
+                        <div class="row">
+                            <div class="col-12">
+                                <table id="transacciones_en_vivo"
+                                    class="table table-hover table-bordered nowrap table-cursor">
+                                    <thead>
+                                        <tr style="width: 100% !important;">
+                                            <th>ID proceso</th>
+                                            <th>Apellido y Nombre</th>
+                                            <th>ID Alta temprana</th>
+                                            <th>Sucursal</th>
+                                            <th>CUIL</th>
+                                            <th>CUIT</th>
+                                            <th id="ordenarPorFecha">Inicio etapa</th>
+                                            <th>Etapa actual</th>
+                                            <th>Estado</th>
+                                            <th>FNDATE</th>
+                                            <th style="max-width: 20px !important;">Ver en Validador</th>
+                                            <!-- <th style="max-width: 10px !important;">Ir al Validador</th> -->
+                                            <!-- <th style="max-width: 10px !important;">Ver Datos</th> -->
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

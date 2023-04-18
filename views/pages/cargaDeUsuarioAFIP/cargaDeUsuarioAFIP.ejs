@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<%- include('../../../heads.ejs') %>
+	<script type="text/javascript">
+		<%- include('./../../../config.js') %>
+		<%- include('./../../../log.js') %>
+		// <%- include('./../../../validaLog.js') %>
+	</script>
+	<style>
+		<%- include('./styles.css') %>'
+	</style>
+	<script
+		src="./../plugins/fontawesome-free/icon/user.js"
+		crossorigin="anonymous"
+	></script>
+
+	<body class="overflowhidden" style="margin-bottom: 2rem">
+		<div style="margin: 4rem">
+			<div class="wrapper">
+				<div class="content-wrapper">
+					<div>
+						<section
+							class="col-12 pr-5 my-2 w-100 d-flex justify-content-end"
+						>
+							<div class="row ml-3">
+								<h4 class="">Bienvenido:</h4>
+								<h6 class="pt-2 ml-3">
+									<i
+										class="far fa-user mr-2"
+										aria-hidden="true"
+									></i
+									><ins id="usuarioLogeado"></ins>
+								</h6>
+							</div>
+						</section>
+					</div>
+					<section class="col-12 my-2">
+						<div class="col-12 d-flex">
+							<div class="col-3 py-3 p-3">
+								<%- include('../../menu.ejs') %>
+							</div>
+							<div class="col-6 py-3 p-3">
+								<h2 class="col text-center">
+									Carga de Usuario y Contraseña AFIP
+								</h2>
+							</div>
+							<div class="col-1"></div>
+							<div class="col-2 py-3 p-3">
+								<button
+									type="button"
+									class="btn btn-info mr-4 float-right"
+									id="cerrarSesion"
+								>
+									Cerrar Sesión
+								</button>
+							</div>
+						</div>
+					</section>
+					<div class="d-flex justify-content-center">
+						<section
+							class="col-4 text-center boxcontentcustom"
+							style="
+								margin-top: 5rem;
+								border-radius: 30px;
+								border: 5px solid #0095d9;
+							"
+						>
+							<img
+								src="./../assets/images/DWo-NV1XUAApXXT.png"
+								class=""
+								style="
+									position: relative;
+									top: -55px;
+									width: 27%;
+								"
+							/>
+							<div class="justify-content-centerr">
+								<div class="col-12">
+									<div
+										class="d-flex flex-column justify-content-between"
+									>
+										<p
+											id="nombreDelUsuario"
+											class="h2custom"
+										></p>
+									</div>
+								</div>
+								<div class="col-12">
+									<div
+										class="form-group d-flex flex-column justify-content-between"
+									>
+										<label><b>Área</b></label>
+										<select
+											class="form-control autocomplete selectcustom"
+											id="area"
+											required
+										>
+											<option value="">
+												Seleccione...
+											</option>
+											<option value="ABM">
+												Alta, baja y modificacion de
+												registros
+											</option>
+											<option value="BAJA">
+												Baja de registros
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-12">
+									<div
+										class="form-group d-flex flex-column justify-content-between"
+									>
+										<label
+											><b>CUIL Usuario de AFIP</b></label
+										>
+										<input
+											class="form-control text-center"
+											type="text"
+											style="width: 100%"
+											id="CUIL"
+										/>
+									</div>
+								</div>
+								<div class="col-12">
+									<div
+										class="form-group d-flex flex-column justify-content-between"
+									>
+										<label><b>Contraseña de AFIP</b></label>
+										<input
+											class="form-control text-center"
+											type="text"
+											style="width: 100%"
+											id="contra"
+										/>
+									</div>
+								</div>
+								<div class="col-12">
+									<div id="camposFaltantes"></div>
+								</div>
+								<div class="col-12 d-flex">
+									<div
+										class="col py-3 p-2"
+										id="botonExportar"
+									>
+										<button
+											type="button"
+											class="btn btn-dark ml-2"
+											id="cargarDatos"
+										>
+											Cargar datos de AFIP
+										</button>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		<%- include('./../jsonDeDatos.js') %>
+		<%- include('./../funcionesGenerales.js') %>
+		<%- include('./../servicios.js') %>
+		<%- include('./cargaDeUsuarioAFIP.js') %>
+	</script>
+</html>

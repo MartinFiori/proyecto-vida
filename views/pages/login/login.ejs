@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<%- include('../../../heads.ejs') %>
+    <style>
+        <%- include('./styles.css') %>
+    </style>
+
+    <body class="overflowhidden">
+        <%- include('../../loader.ejs') %>
+            <div class="background">
+                <div class="container centrado d-flex justify-content-center align-items-center">
+                    <div class="row text-center login-page mt-5">
+                        <div class="col-md-12 login-form centrado">
+                            <div class="row">
+                                <div class="col-md-12 login-form-header">
+                                    <p class="login-form-font-header">ADP-BOT</p>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 login-from-row">
+                                    <input id="usuario" name="usuario" type="text" placeholder="Usuario" required
+                                        class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 login-from-row">
+                                    <input id="password" name="password" type="password" placeholder="Contraseña"
+                                        required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 login-from-row">
+                                    <button id="login" class="btn btn-info">Entrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+
+    <script type="text/javascript">
+       <%- include('./../../../config.js') %> 
+       <%- include('./../../../log.js') %> 
+       //<%- include('./../servicios.js') %>
+       <%- include('./login.js') %>
+    </script>
+
+</html>

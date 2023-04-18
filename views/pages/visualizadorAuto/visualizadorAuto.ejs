@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<%- include('../../../heads.ejs') %>
+    <style>
+        <%- include('./styles.css') %>
+        .panel {
+            box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, .25);
+            border-radius: 5px;
+        }
+
+        .table td,
+        .table th {
+            min-width: 100px !important;
+            max-width: 230px !important;
+        }
+    </style>
+    <script src='./../plugins/fontawesome-free/icon/user.js' crossorigin='anonymous'></script>
+    <script type="text/javascript">
+        <%- include('./../../../config.js') %> 
+        <%- include('./../../../log.js') %> 
+        // <%- include('./../../../validaLog.js') %>
+    </script>
+
+    <body class="overflowhidden" style="margin-bottom: 2rem">
+        <div style="margin: 4rem ">
+            <div class="wrapper">
+                <div class="content-wrapper">
+                        <div>
+                            <section class="col-12 pr-5 my-2 w-100 d-flex justify-content-end">
+                                <div class="row ml-3">
+                                    <h4 class="">Bienvenido:</h4>
+                                    <h6 class="pt-2 ml-3"> <i class="far fa-user  mr-2" aria-hidden="true"></i><ins
+                                            id="usuarioLogeado"></ins></h6>
+                                </div>
+                            </section>
+                        </div>
+                        <section class="col-12 my-2">
+                            <div class="col-12 d-flex">
+                                <div class="col-3 py-3 p-3">
+                                    <%- include('../../menu.ejs') %>
+                                </div>
+                                <div class="col-6  py-3 p-3">
+                                    <h2 class="col text-center">Visualizador de automatización</h2>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-2 py-3 p-3 ">
+                                    <button type="button" class="btn btn-info mr-4 float-right" id="cerrarSesion">Cerrar
+                                        Sesión</button>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <div style="padding-left: 2rem;padding-right: 2rem;">
+                        <%- include('componente/comp_estadoServicios.ejs') %>
+                            <div id="loader" class="spinner-border text-success loader" style="z-index: 100;"
+                                role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <br>
+                            <br>
+                            <div id="proceso" class="row panel container-fluid" hidden>
+                                <h3 class="my-4 mx-2  text-info">Proceso</h3>
+                                <div class="col-12"></div>
+                                <div class="col-6 my-3" id="transacciones">
+                                    <div class="content-header">
+                                        <div class="content-header">
+                                            <div class="card-body" style="display: block;">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <table id="etapasDelProceso"
+                                                            class="table table-hover table-bordered nowrap table-cursor text-center">
+                                                            <thead>
+                                                                <tr class=" bg-info text-white ">
+                                                                    <th>numero</th>
+                                                                    <th>Etapa</th>
+                                                                    <th>Importado/Procesado</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Cant. Reintentos</th>
+                                                                </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+            <%- include('./../jsonDeDatos.js') %>
+            <%- include('./../funcionesGenerales.js') %>
+            <%- include('./../servicios.js') %>
+            <%- include('./visualizadorAuto.js') %>
+            <%- include('componente/estadoServicios.js') %>
+            </script>
+    </body>
+
+</html>

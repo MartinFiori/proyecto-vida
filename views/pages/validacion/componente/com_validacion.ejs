@@ -1,0 +1,733 @@
+<style>
+  /* .table :is(td, th) {
+        min-width: 30px !important;
+        max-width: 260px !important;
+    } */
+
+  /* tr {
+        cursor: pointer;
+    } */
+
+  .datepicker {
+    top: 181.042px;
+    left: 746.476px;
+    z-index: 10;
+    display: block;
+  }
+
+  /* .table-condensed {
+        width: 318px;
+    } */
+</style>
+
+<div
+  id="loader2"
+  class="spinner-border text-success loader"
+  style="z-index: 100"
+  role="status"
+>
+  <span class="sr-only">Loading...</span>
+</div>
+
+<section class="bg-info" style="padding-top: 2rem">
+  <div class="col">
+    <div class="row d-flex align-items-center">
+      <div class="col-2">
+        <div class="form-group d-flex flex-column justify-content-between">
+          <label class="text-white" for="">Filtro por Sucursal</label>
+          <input
+            class="form-control"
+            type="text"
+            style="width: 100%"
+            id="fultrosucursal"
+            name="fultrosucursal"
+          />
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group d-flex flex-column justify-content-between">
+          <label class="text-white" for="selectorUnidadGG">Unidad GG</label>
+          <select
+            class="autocomplete form-control"
+            style="width: 100%"
+            id="selectorUnidadGG"
+            name="selectorUnidadGG"
+            required
+          ></select>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group d-flex flex-column justify-content-between">
+          <label class="text-white" for="fechaIngreso">Fecha Ingreso</label>
+          <div class="form-group d-flex flex-column">
+            <input
+              class="form-control fechadatepicker tamanoTexto"
+              type="text"
+              name="fechaIngreso"
+              id="fechaIngreso"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group d-flex flex-column justify-content-between">
+          <label class="text-white" for="">Filtro por Cliente</label>
+          <input
+            class="form-control"
+            type="text"
+            style="width: 100%"
+            id="filtrocliente"
+            name="filtrocliente"
+          />
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group d-flex flex-column justify-content-between">
+          <label class="text-white" for="fechaFiltro"
+            >Importado/Procesado</label
+          >
+          <div class="form-group d-flex flex-column">
+            <input
+              class="form-control fechadatepicker tamanoTexto"
+              type="text"
+              name="fechaFiltro"
+              id="fechaFiltro"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group d-flex flex-column justify-content-between">
+          <label class="text-white" for="selectorUnidadGG">Estado</label>
+          <select
+            class="autocomplete form-control"
+            style="width: 100%"
+            id="selectorEstado"
+            name="selectorEstado"
+            required
+          >
+            <option value="">Seleccione...</option>
+            <option value="Para validar">Para validar</option>
+            <option value="Errores">Errores</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="row">
+      <div class="col-12 d-flex">
+        <div class="col py-3 p-2" id="botonExportar">
+          <button type="button" class="btn btn-dark ml-2" id="limpiarCampos">
+            Limpiar Buscador
+          </button>
+          <button type="button" class="btn btn-dark ml-2" id="refresh">
+            Refrescar tabla
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<div class="content-header">
+  <div class="content-header">
+    <div class="card-body" style="display: block">
+      <div class="row">
+        <div class="col-md-12 col-12">
+          <table
+            id="cargarDatos"
+            class="table table-hover table-bordered nowrap table-cursor"
+            width="100%"
+          >
+            <thead>
+              <tr>
+                <th>Sucursal</th>
+                <th>Unidad GG</th>
+                <th id="ordenarPorFechaIngreso">Fecha Ingreso</th>
+                <th>Cliente</th>
+                <th>Apellido y Nombre</th>
+                <th>CUIL</th>
+                <th>Domicilio Explotación</th>
+                <th id="ordenarPorFecha">Importado/Procesado</th>
+                <th>Observaciónes</th>
+                <th>ordenFecha</th>
+                <th>ordenFechaINICIO</th>
+                <th id="columnaEliminar" style="max-width: 80px !important">
+                  Eliminar
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="staticBackdrop">
+  <div
+    id="loader"
+    class="spinner-border text-success loader"
+    style="z-index: 100"
+    role="status"
+  >
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="modal-dialog d-flex justify-content-center">
+    <div class="modal-content" style="min-width: 250% !important">
+      <div class="modal-header border-bottom-0">
+        <h4
+          class="modal-title"
+          id="staticBackdropLabel"
+          style="padding-left: 30px; padding-right: 30px; width: 400px"
+        >
+          Validacion de datos
+        </h4>
+        <div id="observaciones" style="width: 100%"></div>
+
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span
+            aria-hidden="true"
+            style="color: rgb(229, 145, 145); font-size: 25px"
+            >&times;</span
+          >
+        </button>
+      </div>
+
+      <ul
+        class="nav nav-tabs"
+        style="margin-left: 10px; z-index: 1; border-bottom: none"
+      >
+        <li class="nav-item text-center" id="camposDelValidador">
+          <a
+            class="nav-link"
+            style="width: 250px; font-size: 15px; color: unset"
+            >Campos del Validador</a
+          >
+        </li>
+        <li class="nav-item text-center" id="camposDeRopa">
+          <a
+            class="nav-link"
+            style="width: 250px; font-size: 15px; color: unset"
+            >Campos de Indumentaria</a
+          >
+        </li>
+      </ul>
+      <div
+        class="modal-body alto"
+        id="camposModalDelValidador"
+        style="border: 1px solid rgb(222, 226, 230)"
+      >
+        <div class="col">
+          <div class="card maximo-carta-panel">
+            <div class="card-body">
+              <div class="col">
+                <form id="formdocumentos">
+                  <input type="hidden" id="Proceso" name="Proceso" />
+                  <input type="hidden" id="idReferencia" name="idReferencia" />
+                  <input type="hidden" id="idNitro4" name="idNitro4" />
+                  <div class="row d-flex align-items-center">
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="nombreApellido">Apellido y Nombre</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="nombreApellido"
+                          aria-describedby="nombreApellido"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="CUIL">CUIL</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="CUIL"
+                          aria-describedby="CUIL"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="DNI">Empleado DNI</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="DNI"
+                          aria-describedby="DNI"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row d-flex align-items-center">
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="unidad_gg">Unidad de GG</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="unidad_gg"
+                          aria-describedby="unidad_gg"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="cliente">Cliente</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="cliente"
+                          aria-describedby="cliente"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="fechaInicio">Fecha Inicio</label>
+                        <input
+                          class="form-control inputdatepicker tamanoTexto"
+                          type="text"
+                          name="fechaInicio"
+                          id="fechaInicio"
+                          autocomplete="off"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group d-flex flex-column">
+                        <label for="domiciolioExplotacion"
+                          >Domicilio Explotación</label
+                        >
+                        <select
+                          class="autocomplete form-control"
+                          id="domiciolioExplotacion"
+                          name="domiciolioExplotacion"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group d-flex flex-column">
+                        <label for="empleadorActividad"
+                          >Empleador Actividad</label
+                        >
+                        <select
+                          class="autocomplete form-control"
+                          id="empleadorActividad"
+                          name="empleadorActividad"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group d-flex flex-column">
+                        <label for="domiciolioExplotacionAFIP"
+                          >Domicilio Explotación AFIP
+                        </label>
+                        <select
+                          class="autocomplete form-control"
+                          id="domiciolioExplotacionAFIP"
+                          name="domiciolioExplotacionAFIP"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-4" hidden>
+                      <div class="form-group d-flex flex-column">
+                        <label for="EmpleadoSucursal">Empleado Sucursal</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="EmpleadoSucursal"
+                          aria-describedby="EmpleadoSucursal"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group d-flex flex-column">
+                        <label for="ECC">Empleado Convenio Colectivo</label>
+                        <select
+                          class="autocomplete form-control"
+                          style="font-size: 4px"
+                          id="ECC"
+                          name="ECC"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6" id="divcategoriaEmpleado">
+                      <div class="form-group d-flex flex-column">
+                        <div class="fluid">
+                          <label for="categoriaEmpleado"
+                            >Categoría Empleado</label
+                          ><small style="color: #17a2b8" id="puestokatena">
+                          </small>
+                        </div>
+                        <select
+                          class="autocomplete form-control"
+                          id="categoriaEmpleado"
+                          name="categoriaEmpleado"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-6" id="divcodigocategoriaEmpleado">
+                      <div class="form-group d-flex flex-column">
+                        <label for="codigocategoriaEmpleado"
+                          >Código categoría</label
+                        >
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="codigocategoriaEmpleado"
+                          aria-describedby="codigocategoriaEmpleado"
+                          maxlength="6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6" id="divpuestoDesempenado">
+                      <div class="form-group d-flex flex-column">
+                        <label for="puestoDesempenado"
+                          >Puesto Desempeñado</label
+                        >
+                        <select
+                          class="autocomplete form-control"
+                          id="puestoDesempenado"
+                          name="puestoDesempenado"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-6" id="divcalificacionProfesional">
+                      <div class="form-group d-flex flex-column">
+                        <label for="calificacionProfesional"
+                          >Calificacion Profesional</label
+                        >
+                        <select
+                          class="autocomplete form-control"
+                          id="calificacionProfesional"
+                          name="calificacionProfesional"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="obraSocial">Obra Social</label>
+                        <select
+                          class="autocomplete form-control"
+                          id="obraSocial"
+                          name="obraSocial"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="EMC">Empleado Modalidad Contrato</label>
+                        <select
+                          class="autocomplete form-control"
+                          id="EMC"
+                          name="EMC"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group d-flex flex-column">
+                        <label for="ESR">Empleado Situación Revista</label>
+                        <select
+                          class="autocomplete form-control"
+                          id="ESR"
+                          name="ESR"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-2">
+                      <!-- <div class="col-3"> -->
+                      <div class="form-group d-flex flex-column">
+                        <label for="modalidadLiquicion"
+                          >Modalidad Liquidación</label
+                        >
+                        <select
+                          class="autocomplete form-control"
+                          id="modalidadLiquicion"
+                          name="modalidadLiquicion"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <!-- <div class="col-1">
+                                            <div class="form-group">
+                                                <label for="modalidadLiquicion">Prepaga</label>
+                                                <div class="input-group-text bg-info col-7 ml-2">
+                                                    <input type="checkbox" id="prepaga">
+                                                </div>
+                                            </div>
+                                        </div> -->
+                    <div class="col-3">
+                      <div class="form-group d-flex flex-column">
+                        <label for="remuPactada">Remuneración Pactada</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="remuPactada"
+                          aria-describedby="remuPactada"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group d-flex flex-column">
+                        <label for="tipoSueldo">Tipo Sueldo</label>
+                        <select
+                          class="autocomplete form-control"
+                          id="tipoSueldo"
+                          name="tipoSueldo"
+                          required
+                        >
+                          <option value="">Seleccione...</option>
+                          <option value="J">Jornal</option>
+                          <option value="M">Mensual</option>
+                          <option value="D">Diario</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group d-flex flex-column">
+                        <label for="CUIT">CUIT</label>
+                        <input
+                          type="text"
+                          class="tamanoTexto form-control"
+                          id="CUIT"
+                          aria-describedby="CUIT"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="form-group d-flex flex-column">
+                        <label for="EGTS">Empleado Grupo Tipo Servicio</label>
+                        <select
+                          class="autocomplete form-control"
+                          id="EGTS"
+                          name="EGTS"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group d-flex flex-column">
+                        <label for="ETS">Empleado Tipo Servicio</label>
+                        <select
+                          class="autocomplete form-control"
+                          id="ETS"
+                          name="ETS"
+                          required
+                        ></select>
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div
+                        class="input-group text-center"
+                        style="padding-top: 20px"
+                      >
+                        <label for="empleadoAgricola" class="tamanoTexto"
+                          >Empleado Agrícola</label
+                        >
+                      </div>
+                      <div class="input-group-prepend ml-5">
+                        <div class="input-group-text bg-info">
+                          <input type="checkbox" id="empleadoAgricola" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div
+                        class="input-group text-center"
+                        style="padding-top: 20px"
+                      >
+                        <label for="empladoRegimen" class="tamanoTexto"
+                          >Empleado Régimen</label
+                        >
+                      </div>
+                      <div class="input-group-prepend ml-5">
+                        <div class="input-group-text bg-info">
+                          <input type="checkbox" id="empladoRegimen" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div
+                        class="input-group text-center"
+                        style="padding-top: 20px"
+                      >
+                        <label for="licCovid" class="tamanoTexto"
+                          >Licencia por Covid</label
+                        >
+                      </div>
+                      <div class="input-group-prepend ml-5">
+                        <div class="input-group-text bg-info">
+                          <input type="checkbox" id="licCovid" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1">
+                      <div
+                        class="input-group text-center"
+                        style="padding-top: 20px"
+                      >
+                        <label for="ClausulaNoRepeticion" class="tamanoTexto"
+                          >Clausula No Repeticion</label
+                        >
+                      </div>
+                      <div class="input-group-prepend ml-5">
+                        <div class="input-group-text bg-info">
+                          <input type="checkbox" id="ClausulaNoRepeticion" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div id="observaciones"></div>
+                      </div>
+
+                      <div class="col-3">
+                        <div
+                          class="input-group text-center"
+                          style="margin-left: 50px; font-size: 18px"
+                        >
+                          <label for="llevaRopa">Lleva Ropa</label>
+                          <div
+                            class="input-group-text bg-info mx-5"
+                            style="width: 20%"
+                          >
+                            <input
+                              type="checkbox"
+                              id="llevaRopa"
+                              style="margin-left: 28%"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <form id="mensajeDeBloqueo"></form>
+                <div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div id="camposAlertas"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div id="camposFaltantes"></div>
+                    </div>
+                    <div class="col-4" style="max-width: 30%"></div>
+                    <div class="col-1 mr-3" id="confirmar">
+                      <button type="button" class="btn btn-success confirmar">
+                        Confirmar
+                      </button>
+                    </div>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-primary cerrar">
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal-body alto"
+        id="camposModalDeRopa"
+        style="border: 1px solid rgb(222, 226, 230)"
+      >
+        <div class="col">
+          <div class="card maximo-carta-panel">
+            <div class="card-body">
+              <div class="col">
+                <form id="formdocumentos">
+                  <input type="hidden" id="Proceso" name="Proceso" />
+                  <input type="hidden" id="idReferencia" name="idReferencia" />
+                  <input type="hidden" id="idNitro4" name="idNitro4" />
+                  <div id="listadoDeRopa"></div>
+                  <div class="col-sm-1 btn-sm">
+                    <br />
+                    <a
+                      href="#"
+                      id="btnagregarRegistro"
+                      class="btn-block btn btn-info m-t-4"
+                      title="Añadir Prenda"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </a>
+                  </div>
+                </form>
+                <br />
+                <br />
+
+                <form id="mensajeDeBloqueo"></form>
+                <div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div id="camposAlertas"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div id="camposFaltantes2"></div>
+                    </div>
+                    <div class="col-4" style="max-width: 30%"></div>
+                    <div class="col-1 mr-3" id="confirmar">
+                      <button type="button" class="btn btn-success confirmar">
+                        Confirmar
+                      </button>
+                    </div>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-primary cerrar">
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  <%- include('./validacion.js') %>
+</script>

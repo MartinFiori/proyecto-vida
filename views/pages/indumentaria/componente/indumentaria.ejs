@@ -1,0 +1,45 @@
+<style>
+    .datepicker {
+        top: 181.042px;
+        left: 746.476px;
+        z-index: 10;
+        display: block;
+    }
+</style>
+
+<div id="loader2" class="spinner-border text-success loader" style="z-index: 100;" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<section class="bg-info" style="padding-top: 2rem; padding-bottom: 1rem;">
+    <div class="col">
+        <div class="row d-flex align-items-center">
+
+            <div class="col-2">
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label class="text-white" for="">Filtro por CUIT de Empleado</label>
+                    <input class="form-control" type="text" style="width:100%" id="cuitEmpleado"
+                        name="cuitEmpleado" />
+                </div>
+            </div>
+            
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div id="contenedorBtn" class="col-12 d-flex">
+                    <div class="col py-3 p-2">
+                        <button type="button" id="buscarEmpleado" class="btn btn-dark ml-2">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    <%- include('./indumentaria.js') %>
+</script>
+
+

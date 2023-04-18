@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <%- include('../../../heads.ejs') %>
+  <style>
+    <%- include('./styles.css') %>
+  </style>
+
+  <body class="overflowhidden" style="margin-bottom: 2rem">
+    <div style="margin: 4rem">
+      <div class="wrapper">
+        <div class="content-wrapper">
+          <div>
+            <section class="col-12 pr-5 my-2 w-100 d-flex justify-content-end">
+              <div class="row ml-3">
+                <h4 class="">Bienvenido:</h4>
+                <h6 class="pt-2 ml-3">
+                  <i class="far fa-user mr-2" aria-hidden="true"></i
+                  ><ins id="usuarioLogeado"></ins>
+                </h6>
+              </div>
+            </section>
+          </div>
+          <section class="col-12 my-2">
+            <div class="col-12 d-flex">
+              <div class="col-3 py-3 p-3"><%- include('../../menu.ejs') %></div>
+              <div class="col-6 py-3 p-3">
+                <h2 class="col text-center">Formulario 885</h2>
+              </div>
+              <div class="col-1"></div>
+              <div class="col-2 py-3 p-3">
+                <button
+                  type="button"
+                  class="btn btn-info mr-4 float-right"
+                  id="cerrarSesion"
+                >
+                  Cerrar Sesión
+                </button>
+              </div>
+            </div>
+          </section>
+          <%- include('./componente/com_formulario885.ejs') %>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript"></script>
+</html>

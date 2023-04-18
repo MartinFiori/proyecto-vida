@@ -1,0 +1,8 @@
+**node-modulos
+**/node-modulos
+*/node_modules/*
+*node_modules/*
+/node_modules
+node_modules/
+node_modules/**
+jsreport.js

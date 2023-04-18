@@ -1,0 +1,67 @@
+<style>
+    .datepicker {
+        top: 181.042px;
+        left: 746.476px;
+        z-index: 10;
+        display: block;
+    }
+</style>
+
+<div id="loader2" class="spinner-border text-success loader" style="z-index: 100;" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<section class="bg-info" style="padding-top: 2rem;">
+    <div class="col">
+        <div class="row d-flex align-items-center">
+            <div class="col-3">
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label class="text-white" for="fechaIngreso">Fecha Proceso desde:</label>
+                    <div class="form-group d-flex flex-column ">
+                        <input class="form-control fechadatepicker tamanoTexto" type="text" name="fechadesde"
+                            id="fechadesde" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="col-3" >
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label class="text-white" for="fechaIngreso">Fecha Proceso hasta:</label>
+                    <div class="form-group d-flex flex-column ">
+                        <input class="form-control fechadatepicker tamanoTexto" type="text" name="fechahasta"
+                            id="fechahasta" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label class="text-white" for="selectorUnidadGG">Unidad GG</label>
+                    <select class="autocomplete form-control" style="width:100%" id="selectorUnidadGG"
+                        name="selectorUnidadGG" >
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group d-flex flex-column justify-content-between">
+                    <label class="text-white" for="selectorMotivoBaja">Motivo de baja</label>
+                    <select class="autocomplete form-control" style="width:100%" id="selectorMotivoBaja" name="selectorMotivoBaja" >
+                    </select>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="row">
+            <div id="contenedorBtn" class="col-12 d-flex">
+                <div class="col py-3 p-2" id="botonExportar">
+                <button type="button" id="soliciatarReporteEnExcel" class="btn btn-dark ml-2">Exportar Datos <i class="fa fa-download " aria-hidden="true"></i></button></div>
+            </div>
+        </div>
+    </section>
+</section>
+<iframe width="100%" id="reporteBajas" src="" frameborder="0" height="700"></iframe>
+<script type="text/javascript">
+    <%- include('./bajas.js') %>
+</script>
+
+
