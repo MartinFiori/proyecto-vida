@@ -48,8 +48,8 @@ router.get("/cargaDeUsuarioAFIP", function (req, res) {
   res.render("./pages/cargaDeUsuarioAFIP/cargaDeUsuarioAFIP.ejs");
 });
 
-router.get("/formulario885", (req, res) => {
-  res.render("./pages/formulario885/formulario885.ejs");
+router.get("/formulariof885", (req, res) => {
+  res.render("./pages/formulariof885/formulariof885.ejs");
 });
 
 server.listen(port, () => {

@@ -78,12 +78,12 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="form-group">
+          <div class="form-group d-flex flex-column">
             <label for="operacion" class="form-label"
               >Seleccione una operación:</label
             >
             <select
-              class="form-select"
+              class="form-control"
               id="operacion"
               name="operacion"
               aria-label="Default select example"
@@ -432,9 +432,10 @@
       const btnAgregarCuil = document.getElementById("btnAgregarCuil");
       const cuil = document.getElementById("cuil");
       const cuilsAgregados = document.getElementById("cuilsAgregados");
-      btnAgregarCuil.addEventListener("click", capturarDatos);
       const openModal = document.getElementById("openModal"); //Nico hizo esto
+      btnAgregarCuil.addEventListener("click", capturarDatos);
       let cuils = [];
+      const cuilSeleccionado = {};
       $("#cuilsGroup").on("click", "a", function () {
         $("#cuilsGroup a").removeClass("active");
         $(this).addClass("active");
@@ -497,7 +498,8 @@
           const element = $("<a>", {
             href: "#",
             class: "list-group-item list-group-item-action",
-            "data-cuil": solicitud.cuil,
+            id: solicitud.cuil,
+            "data-operacion": solicitud.operacion,
             text: `CUIL: ${solicitud.cuil}, Operación: ${solicitud.operacionText}`,
           });
 
@@ -508,6 +510,12 @@
         // les agrego agarro todos los li con la clase item para poder eliminar cada uno
         $(".btn").click(function () {
           eliminar(this);
+        });
+        $(".list-group-item").click(function () {
+          const found = cuils.find((el) => el.cuil === this.id);
+          cuilSeleccionado.cuil = found.cuil;
+          cuilSeleccionado.operacion = found.operacion;
+          cuilSeleccionado.operacionText = found.operacionText;
         });
       }
 
@@ -523,12 +531,17 @@
         return cuilRegex.test(cuil.value);
       }
 
-      //Nico trabaja por aca//
-      const editarCuilsTab = document.getElementById("editarCuils-tab");
-
       function EditarCuils() {
+        const editarCuilsTab = document.getElementById("editarCuils-tab");
+        // if (cuils.length) {
+        //   editarCuilsTab.style.display = "block";
+        // } else {
+        //   editarCuilsTab.style.display = "none";
+        // }
         // funcion que habilita la seccion de editar cuils si hay o no algo en el array de los cuils
-        editarCuilsTab.style.display = cuils.length ? "block" : "none";
+        cuils.length
+          ? $("#editarCuils-tab").show()
+          : $("#editarCuils-tab").hide();
       }
       EditarCuils();
     });
