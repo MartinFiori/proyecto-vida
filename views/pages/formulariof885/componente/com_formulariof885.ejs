@@ -1,136 +1,125 @@
 <style>
-  .formulario-tab {
-    display: none;
-  }
-  .formulario-tab.active {
-    display: block;
-  }
+	.formulario-tab {
+		display: none;
+	}
+	.formulario-tab.active {
+		display: block;
+	}
 
-  .nav-tabs .nav-link:not(.active) {
-    color: #495057;
-  }
+	.nav-tabs .nav-link:not(.active) {
+		color: #495057;
+	}
 
-  .nav-tabs .nav-item .active {
-    color: var(--info);
-  }
+	.nav-tabs .nav-item .active {
+		color: var(--info);
+	}
 
-  .cuil-list {
-    height: 250px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
+	.cuil-list {
+		height: 250px;
+		overflow-y: auto;
+		margin-bottom: 20px;
+		border: 1px solid #ccc;
+		padding: 10px;
+	}
 
-  .cuil-list-item {
-    margin-bottom: 5px;
-  }
-  li {
-    list-style: none;
-  }
+	.cuil-list-item {
+		margin-bottom: 5px;
+	}
+	li {
+		list-style: none;
+	}
 </style>
 
 <div class="container mt-5">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a
-        class="nav-link active"
-        id="agregarCuil-tab"
-        data-toggle="tab"
-        href="#agregarCuil"
-        role="tab"
-        aria-controls="agregarCuil"
-        aria-selected="true"
-        >Agregar CUIL</a
-      >
-    </li>
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        id="editarCuils-tab"
-        data-toggle="tab"
-        href="#editarCuils"
-        role="tab"
-        aria-controls="editarCuils"
-        aria-selected="false"
-        >Editar CUILs</a
-      >
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div
-      class="tab-pane fade show active"
-      id="agregarCuil"
-      role="tabpanel"
-      aria-labelledby="agregarCuil-tab"
-    >
-      <div class="row">
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="cuil">Agregar CUIL:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="cuil"
-              name="cuil"
-              placeholder="Ingrese el CUIL"
-            />
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group d-flex flex-column">
-            <label for="select-administrada" class="form-label"
-              >Seleccione una operación:</label
-            >
-            <select
-              class="form-control"
-              id="select-administrada"
-              name="select-administrada"
-              aria-label="Default select example"
-              aria-placeholder="Seleccionar..."
-            >
-              <option value="default" selected>Seleccione una opción</option>
-              <option value="anulacion_alta">Anulación de alta</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group d-flex flex-column">
-            <label for="operacion" class="form-label"
-              >Seleccione una operación:</label
-            >
-            <select
-              class="form-control"
-              id="operacion"
-              name="operacion"
-              aria-label="Default select example"
-              aria-placeholder="Seleccionar..."
-            >
-              <option value="default" selected>Seleccione una opción</option>
-              <option value="anulacion_alta">Anulación de alta</option>
-              <option value="anulacion_baja">Anulación de baja</option>
-              <option value="modificacion_ingreso">
-                Modificación fecha de ingreso
-              </option>
-              <option value="modificacion_egreso">
-                Modificación fecha de egreso
-              </option>
-              <option value="motivo_baja">Motivo de baja</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <button
-            type="submit"
-            class="btn btn-success mt-4"
-            id="btnAgregarCuil"
-          >
-            Agregar
-          </button>
-        </div>
-      </div>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a
+				class="nav-link active"
+				id="agregarCuil-tab"
+				data-toggle="tab"
+				href="#agregarCuil"
+				role="tab"
+				aria-controls="agregarCuil"
+				aria-selected="true"
+				>Agregar CUIL</a
+			>
+		</li>
+		<li class="nav-item">
+			<a
+				class="nav-link"
+				id="editarCuils-tab"
+				data-toggle="tab"
+				href="#editarCuils"
+				role="tab"
+				aria-controls="editarCuils"
+				aria-selected="false"
+				>Editar CUILs</a
+			>
+		</li>
+	</ul>
+	<div class="tab-content" id="myTabContent">
+		<div
+			class="tab-pane fade show active"
+			id="agregarCuil"
+			role="tabpanel"
+			aria-labelledby="agregarCuil-tab"
+		>
+			<div class="row">
+				<div class="col-md-5">
+					<div class="form-group">
+						<label for="cuil">Agregar CUIL:</label>
+						<input
+							type="text"
+							class="form-control"
+							id="cuil"
+							name="cuil"
+							placeholder="Ingrese el CUIL"
+						/>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group d-flex flex-column">
+						<label for="operacion" class="form-label"
+							>Seleccione una operación:</label
+						>
+						<select
+							class="form-control"
+							id="operacion"
+							name="operacion"
+							aria-label="Default select example"
+							aria-placeholder="Seleccionar..."
+						>
+							<option value="default" selected>
+								Seleccione una opción
+							</option>
+							<option value="anulacion_alta">
+								Anulación de alta
+							</option>
+							<option value="anulacion_baja">
+								Anulación de baja
+							</option>
+							<option value="modificacion_ingreso">
+								Modificación fecha de ingreso
+							</option>
+							<option value="modificacion_egreso">
+								Modificación fecha de egreso
+							</option>
+							<option value="motivo_baja">Motivo de baja</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<button
+						type="submit"
+						class="btn btn-success mt-4"
+						id="btnAgregarCuil"
+					>
+						Agregar
+					</button>
+				</div>
+			</div>
 
-      <!-- <div class="form-group mt-4">
+			<!-- <div class="form-group mt-4">
         <label for="cuil">Agregar CUIL:</label>
         <input
           type="text"
@@ -143,417 +132,437 @@
           Agregar
         </button>
       </div> -->
-      <div>
-        <h6 id="title" style="display: block">Cuils Agregados:</h6>
-        <div id="cuilsAgregados"></div>
-      </div>
-    </div>
-    <div
-      class="tab-pane fade"
-      id="editarCuils"
-      role="tabpanel"
-      aria-labelledby="editarCuils-tab"
-    >
-      <h3 class="mt-4">Seleccione el CUIL que desea editar:</h3>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-8">
-            <label>Lista de CUIL:</label>
-            <div class="list-group" id="cuilsGroup"></div>
-          </div>
-          <div class="col-md-4">
-            <button
-              type="button"
-              class="btn btn-primary w-100"
-              id="openModal"
-              style="display: none"
-            >
-              Editar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+			<div>
+				<h6 id="title" style="display: block">Cuils Agregados:</h6>
+				<div id="cuilsAgregados"></div>
+			</div>
+		</div>
+		<div
+			class="tab-pane fade"
+			id="editarCuils"
+			role="tabpanel"
+			aria-labelledby="editarCuils-tab"
+		>
+			<h3 class="mt-4">Seleccione el CUIL que desea editar:</h3>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-8">
+						<label>Lista de CUIL:</label>
+						<div class="list-group" id="cuilsGroup"></div>
+					</div>
+					<div class="col-md-4">
+						<button
+							type="button"
+							class="btn btn-primary w-100"
+							id="openModal"
+							style="display: none"
+						>
+							Editar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="myModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="myModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Título del modal</h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-hidden="true"
-          >
-            &times;
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6">
-              <h5>Datos de AFIP</h5>
-              <div class="form-group">
-                <label for="empleado">Empleado:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="empleado"
-                  name="input1"
-                  value="Empleado"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="obra_social">Obra social:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="obra_social"
-                  name="obra_social"
-                  value="Obra social"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="mod_contrato">Mod. Contrato:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="mod_contrato"
-                  name="mod_contrato"
-                  value="Mod. Contrato"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="sucursal">Sucursal:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="sucursal"
-                  name="sucursal"
-                  value="Sucursal"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="actividad">Actividad:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="actividad"
-                  name="actividad"
-                  value="Actividad"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="convenio">Convenio:</label>
-                <textarea
-                  class="form-control"
-                  id="convenio"
-                  rows="4"
-                  readonly
-                ></textarea>
-              </div>
-              <div class="form-group">
-                <label for="categoria">Categoria:</label>
-                <input
-                  type="text"
-                  class="form-control no-resize"
-                  id="categoria"
-                  name="categoria"
-                  value="Categoria"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="puesto">Puesto:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="puesto"
-                  name="puesto"
-                  value="Puesto"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="tipo_servicio">Tipo servicio:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="tipo_servicio"
-                  name="tipo_servicio"
-                  value="Tipo servicio"
-                  readonly
-                />
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="fecha_inicio">Fecha de inicio:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="fecha_inicio"
-                      name="fecha_inicio"
-                      value="Fecha de inicio"
-                      readonly
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="fecha_fin">Fecha de Fin:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="fecha_fin"
-                      name="fecha_fin"
-                      value="Fecha de Fin"
-                      readonly
-                    />
-                  </div>
-                </div>
-              </div>
+	<!-- Modal -->
+	<div
+		class="modal fade"
+		id="myModal"
+		tabindex="-1"
+		role="dialog"
+		aria-labelledby="myModalLabel"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">
+						Título del modal
+					</h4>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-hidden="true"
+					>
+						&times;
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<h5>Datos de AFIP</h5>
+							<div class="form-group">
+								<label for="empleado">Empleado:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="empleado"
+									name="input1"
+									value="Empleado"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="obra_social">Obra social:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="obra_social"
+									name="obra_social"
+									value="Obra social"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="mod_contrato">Mod. Contrato:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="mod_contrato"
+									name="mod_contrato"
+									value="Mod. Contrato"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="sucursal">Sucursal:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="sucursal"
+									name="sucursal"
+									value="Sucursal"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="actividad">Actividad:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="actividad"
+									name="actividad"
+									value="Actividad"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="convenio">Convenio:</label>
+								<textarea
+									class="form-control"
+									id="convenio"
+									rows="4"
+									readonly
+								></textarea>
+							</div>
+							<div class="form-group">
+								<label for="categoria">Categoria:</label>
+								<input
+									type="text"
+									class="form-control no-resize"
+									id="categoria"
+									name="categoria"
+									value="Categoria"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="puesto">Puesto:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="puesto"
+									name="puesto"
+									value="Puesto"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="tipo_servicio"
+									>Tipo servicio:</label
+								>
+								<input
+									type="text"
+									class="form-control"
+									id="tipo_servicio"
+									name="tipo_servicio"
+									value="Tipo servicio"
+									readonly
+								/>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="fecha_inicio"
+											>Fecha de inicio:</label
+										>
+										<input
+											type="text"
+											class="form-control"
+											id="fecha_inicio"
+											name="fecha_inicio"
+											value="Fecha de inicio"
+											readonly
+										/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="fecha_fin"
+											>Fecha de Fin:</label
+										>
+										<input
+											type="text"
+											class="form-control"
+											id="fecha_fin"
+											name="fecha_fin"
+											value="Fecha de Fin"
+											readonly
+										/>
+									</div>
+								</div>
+							</div>
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="mod_liq">Mod. Liq:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="mod_liq"
-                      name="mod_liq"
-                      value="Mod. Liq"
-                      readonly
-                    />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="regimen">Regimen:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="regimen"
-                      name="regimen"
-                      value="Regimen"
-                      readonly
-                    />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="retr_pactada">Retr. pactada:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="retr_pactada"
-                      name="retr_pactada"
-                      value="Retr. pactada"
-                      readonly
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="cat">C.A.T:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cat"
-                  name="cat"
-                  value="C.A.T"
-                  readonly
-                />
-              </div>
-              <div class="form-group">
-                <label for="cbt">C.B.T:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cbt"
-                  name="cbt"
-                  value="C.B.T"
-                  readonly
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <h5>Datos a editar</h5>
-              <form class="sticky-top" id="datosEditados">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="fecha_inicio">Fecha de inicio:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="fecha_inicio"
-                      name="fecha_inicio"
-                      value="Fecha de inicio"
-                    />
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="fecha_fin">Fecha de Fin:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="fecha_fin"
-                      name="fecha_fin"
-                      value="Fecha de Fin"
-                    />
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="motivo_de_baja">Motivo de baja:</label>
-                  <textarea
-                    class="form-control"
-                    id="motivo_de_baja"
-                    rows="4"
-                    value="Motivo de baja"
-                  ></textarea>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">
-              Cerrar
-            </button>
-            <button type="button" class="btn btn-primary">
-              Confirmar cambios
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="mod_liq">Mod. Liq:</label>
+										<input
+											type="text"
+											class="form-control"
+											id="mod_liq"
+											name="mod_liq"
+											value="Mod. Liq"
+											readonly
+										/>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="regimen">Regimen:</label>
+										<input
+											type="text"
+											class="form-control"
+											id="regimen"
+											name="regimen"
+											value="Regimen"
+											readonly
+										/>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="retr_pactada"
+											>Retr. pactada:</label
+										>
+										<input
+											type="text"
+											class="form-control"
+											id="retr_pactada"
+											name="retr_pactada"
+											value="Retr. pactada"
+											readonly
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="cat">C.A.T:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="cat"
+									name="cat"
+									value="C.A.T"
+									readonly
+								/>
+							</div>
+							<div class="form-group">
+								<label for="cbt">C.B.T:</label>
+								<input
+									type="text"
+									class="form-control"
+									id="cbt"
+									name="cbt"
+									value="C.B.T"
+									readonly
+								/>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<h5>Datos a editar</h5>
+							<form class="sticky-top" id="datosEditados">
+								<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="fecha_inicio"
+											>Fecha de inicio:</label
+										>
+										<input
+											type="text"
+											class="form-control"
+											id="fecha_inicio"
+											name="fecha_inicio"
+											value="Fecha de inicio"
+										/>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="fecha_fin"
+											>Fecha de Fin:</label
+										>
+										<input
+											type="text"
+											class="form-control"
+											id="fecha_fin"
+											name="fecha_fin"
+											value="Fecha de Fin"
+										/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="motivo_de_baja"
+										>Motivo de baja:</label
+									>
+									<textarea
+										class="form-control"
+										id="motivo_de_baja"
+										rows="4"
+										value="Motivo de baja"
+									></textarea>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-default"
+							data-dismiss="modal"
+						>
+							Cerrar
+						</button>
+						<button type="button" class="btn btn-primary">
+							Confirmar cambios
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <script>
-    $(document).ready(function () {
-      const selectOperacion = document.getElementById("operacion"); //Nico hizo esto
-      const btnAgregarCuil = document.getElementById("btnAgregarCuil");
-      const cuil = document.getElementById("cuil");
-      const cuilsAgregados = document.getElementById("cuilsAgregados");
-      const openModal = document.getElementById("openModal"); //Nico hizo esto
-      btnAgregarCuil.addEventListener("click", capturarDatos);
-      let cuils = [];
-      const cuilSeleccionado = {};
-      $("#cuilsGroup").on("click", "a", function () {
-        $("#cuilsGroup a").removeClass("active");
-        $(this).addClass("active");
-        openModal.style.display = "block"; //Nico hizo esto
-      });
+	<script>
+		$(document).ready(function () {
+			const selectOperacion = document.getElementById("operacion"); //Nico hizo esto
+			const btnAgregarCuil = document.getElementById("btnAgregarCuil");
+			const cuil = document.getElementById("cuil");
+			const cuilsAgregados = document.getElementById("cuilsAgregados");
+			const openModal = document.getElementById("openModal"); //Nico hizo esto
+			btnAgregarCuil.addEventListener("click", capturarDatos);
+			let cuils = [];
+			const cuilSeleccionado = {};
+			$("#cuilsGroup").on("click", "a", function () {
+				$("#cuilsGroup a").removeClass("active");
+				$(this).addClass("active");
+				openModal.style.display = "block"; //Nico hizo esto
+			});
 
-      $("#openModal").click(function () {
-        $("#myModal").modal("show");
-      });
+			$("#openModal").click(function () {
+				$("#myModal").modal("show");
+			});
 
-      function capturarDatos() {
-        // me aseguro que no tenga espacios
-        cuil.value = cuil.value.trim();
-        // me fijo si se encuentra el nuevo CUIL ingresado en el array
-        const exists = cuils.find((el) => el.cuil === cuil.value);
-        // validaciones
-        if (!validarCuil()) {
-          alert(
-            "Por favor, ingrese el cuil con el siguiente formato XX-XXXXXXXX-X"
-          );
-          return;
-        }
-        if (operacion.value === "default") {
-          alert("Por favor seleccione una operación para continuar");
-          return;
-        }
-        if (exists) {
-          alert("El CUIL ingresado ya se ha agregado");
-          return;
-        }
-        // si el cuil es único lo pusheo al array y limpio el input
-        let operacionSeleccionada =
-          selectOperacion.options[selectOperacion.selectedIndex].text; //Nico hizo esto (captura la operacion seleccionada en ese momento)
-        cuils.push({
-          cuil: cuil.value,
-          operacion: $("#operacion").val(),
-          operacionText: operacionSeleccionada,
-        }); //Nico hizo esto
-        $("#operacion").val("default");
-        cuil.value = "";
-        mostrarDatos();
-        openModal.style.display = "none"; //Nico hizo esto
-      }
+			function capturarDatos() {
+				// me aseguro que no tenga espacios
+				cuil.value = cuil.value.trim();
+				// me fijo si se encuentra el nuevo CUIL ingresado en el array
+				const exists = cuils.find(el => el.cuil === cuil.value);
+				// validaciones
+				if (!validarCuil()) {
+					alert(
+						"Por favor, ingrese el cuil con el siguiente formato XX-XXXXXXXX-X"
+					);
+					return;
+				}
+				if (operacion.value === "default") {
+					alert("Por favor seleccione una operación para continuar");
+					return;
+				}
+				if (exists) {
+					alert("El CUIL ingresado ya se ha agregado");
+					return;
+				}
+				// si el cuil es único lo pusheo al array y limpio el input
+				let operacionSeleccionada =
+					selectOperacion.options[selectOperacion.selectedIndex].text; //Nico hizo esto (captura la operacion seleccionada en ese momento)
+				cuils.push({
+					cuil: cuil.value,
+					operacion: $("#operacion").val(),
+					operacionText: operacionSeleccionada,
+				}); //Nico hizo esto
+				$("#operacion").val("default");
+				cuil.value = "";
+				mostrarDatos();
+				openModal.style.display = "none"; //Nico hizo esto
+			}
 
-      // funcion para mostrar los datos en el html
-      function mostrarDatos() {
-        EditarCuils();
-        cuilsAgregados.innerHTML = "";
-        // a cada cuil le creo su elemento html
-        cuils.forEach((cuil) => {
-          let item = document.createElement("li");
-          item.classList.add("item");
-          item.setAttribute("id", cuil.cuil);
-          item.innerHTML = `CUIL: ${cuil.cuil} <br> Operación: ${cuil.operacionText}<button class="btn btn-danger m-2" id=${cuil.cuil}>&times;</button> <br>`;
-          cuilsAgregados.appendChild(item);
-        });
+			// funcion para mostrar los datos en el html
+			function mostrarDatos() {
+				EditarCuils();
+				cuilsAgregados.innerHTML = "";
+				// a cada cuil le creo su elemento html
+				cuils.forEach(cuil => {
+					let item = document.createElement("li");
+					item.classList.add("item");
+					item.setAttribute("id", cuil.cuil);
+					item.innerHTML = `CUIL: ${cuil.cuil} <br> Operación: ${cuil.operacionText}<button class="btn btn-danger m-2" id=${cuil.cuil}>&times;</button> <br>`;
+					cuilsAgregados.appendChild(item);
+				});
 
-        $("#cuilsGroup").html("");
-        $.each(cuils, function (index, solicitud) {
-          const element = $("<a>", {
-            href: "#",
-            class: "list-group-item list-group-item-action",
-            id: solicitud.cuil,
-            "data-operacion": solicitud.operacion,
-            text: `CUIL: ${solicitud.cuil}, Operación: ${solicitud.operacionText}`,
-          });
+				$("#cuilsGroup").html("");
+				$.each(cuils, function (index, solicitud) {
+					const element = $("<a>", {
+						href: "#",
+						class: "list-group-item list-group-item-action",
+						id: solicitud.cuil,
+						"data-operacion": solicitud.operacion,
+						text: `CUIL: ${solicitud.cuil}, Operación: ${solicitud.operacionText}`,
+					});
 
-          // Añadiendo el elemento al contenedor
-          $("#cuilsGroup").append(element);
-        });
+					// Añadiendo el elemento al contenedor
+					$("#cuilsGroup").append(element);
+				});
 
-        // les agrego agarro todos los li con la clase item para poder eliminar cada uno
-        $(".btn").click(function () {
-          eliminar(this);
-        });
-        $(".list-group-item").click(function () {
-          const found = cuils.find((el) => el.cuil === this.id);
-          cuilSeleccionado.cuil = found.cuil;
-          cuilSeleccionado.operacion = found.operacion;
-          cuilSeleccionado.operacionText = found.operacionText;
-        });
-      }
+				// les agrego agarro todos los li con la clase item para poder eliminar cada uno
+				$(".btn").click(function () {
+					eliminar(this);
+				});
+				$(".list-group-item").click(function () {
+					const found = cuils.find(el => el.cuil === this.id);
+					cuilSeleccionado.cuil = found.cuil;
+					cuilSeleccionado.operacion = found.operacion;
+					cuilSeleccionado.operacionText = found.operacionText;
+				});
+			}
 
-      // elimina el item de la lista segun el id del elemento html
-      function eliminar(item_list) {
-        cuils = cuils.filter((el) => el.cuil != item_list.id);
-        mostrarDatos();
-      }
+			// elimina el item de la lista segun el id del elemento html
+			function eliminar(item_list) {
+				cuils = cuils.filter(el => el.cuil != item_list.id);
+				mostrarDatos();
+			}
 
-      // chequeo que el cuil me llegue en el formato correcto
-      function validarCuil() {
-        let cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
-        return cuilRegex.test(cuil.value);
-      }
+			// chequeo que el cuil me llegue en el formato correcto
+			function validarCuil() {
+				let cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
+				return cuilRegex.test(cuil.value);
+			}
 
-      function EditarCuils() {
-        // funcion que habilita la seccion de editar cuils si hay o no algo en el array de los cuils
-        cuils.length
-          ? $("#editarCuils-tab").show()
-          : $("#editarCuils-tab").hide();
-      }
-      EditarCuils();
-    });
-  </script>
+			function EditarCuils() {
+				// funcion que habilita la seccion de editar cuils si hay o no algo en el array de los cuils
+				cuils.length
+					? $("#editarCuils-tab").show()
+					: $("#editarCuils-tab").hide();
+			}
+			EditarCuils();
+		});
+	</script>
 </div>
