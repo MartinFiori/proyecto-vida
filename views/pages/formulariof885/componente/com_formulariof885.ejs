@@ -549,6 +549,12 @@
         $(".btn").click(function () {
           eliminar(this);
         });
+        $(".list-group-item").click(function () {
+          const found = cuils.find((el) => el.cuil === this.id);
+          cuilSeleccionado.cuil = found.cuil;
+          cuilSeleccionado.operacion = found.operacion;
+          cuilSeleccionado.operacionText = found.operacionText;
+        });
       }
 
       // elimina el item de la lista segun el id del elemento html
