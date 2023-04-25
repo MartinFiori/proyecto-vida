@@ -25,8 +25,30 @@
   .cuil-list-item {
     margin-bottom: 5px;
   }
+
   li {
     list-style: none;
+  }
+
+  .cuilDiv {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    width: 100%;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+  }
+
+  .cuilDiv p {
+    margin-bottom: 0;
+  }
+
+  .cuilDiv.active {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
   }
 </style>
 
@@ -382,32 +404,32 @@
               <form class="sticky-top" id="datosEditados">
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="fecha_inicio">Fecha de inicio:</label>
+                    <label for="fecha_inicio_edit">Fecha de inicio:</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="fecha_inicio"
-                      name="fecha_inicio"
+                      id="fecha_inicio_edit"
+                      name="fecha_inicio_edit"
                       value="Fecha de inicio"
                     />
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="fecha_fin">Fecha de Fin:</label>
+                    <label for="fecha_fin_edit">Fecha de Fin:</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="fecha_fin"
-                      name="fecha_fin"
+                      id="fecha_fin_edit"
+                      name="fecha_fin_edit"
                       value="Fecha de Fin"
                     />
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="motivo_de_baja">Motivo de baja:</label>
+                  <label for="operacion_edit">Motivo de baja:</label>
                   <select
                     class="form-control"
-                    id="operacion2"
-                    name="operacion2"
+                    id="operacion_edit"
+                    name="operacion_edit"
                     aria-label="Default select example"
                     aria-placeholder="Seleccionar..."
                   >
@@ -448,23 +470,16 @@
       const btnAgregarCuil = document.getElementById("btnAgregarCuil");
       const cuil = document.getElementById("cuil");
       const cuilsAgregados = document.getElementById("cuilsAgregados");
+      const cuilsGroup = document.getElementById("cuilsGroup");
       btnAgregarCuil.addEventListener("click", capturarDatos);
       const openModal = document.getElementById("openModal"); //Nico hizo esto
       const cuilSeleccionado = {};
       let cuils = [];
-      $("#cuilsGroup").on("click", "a", function () {
-        const found = cuils.find((el) => el.cuil === $(this).data("cuil"));
-        $("#cuilsGroup a").removeClass("active");
-        // $(this).addClass("active");
-        console.log(document.getElementById(`${found.cuil}`));
-        document.getElementById(`${found.cuil}`).classList.add("active");
-        openModal.style.display = "block";
-      });
 
       $("#openModal").click(function () {
         $("#myModal").modal("show");
+        openModal.style.display = "none";
       });
-
       function capturarDatos() {
         // me aseguro que no tenga espacios
         cuil.value = cuil.value.trim();
@@ -507,10 +522,17 @@
         mostrarDatos();
         openModal.style.display = "none"; //Nico hizo esto
       }
-      // funcion para mostrar los datos en el html
+      //document.getElementById('fecha_fin').readOnly = true funcion para mostrar los datos en el html
+      $(document).ready(() => {
+        $("#fecha_fin").prop("readonly", true);
+      });
+
+      // Establecer el campo como de solo lectura
+
       function mostrarDatos() {
         EditarCuils();
         cuilsAgregados.innerHTML = "";
+        cuilsGroup.innerHTML = "";
         // a cada cuil le creo su elemento html
         cuils.forEach((cuil) => {
           let item = document.createElement("li");
@@ -529,31 +551,39 @@
               </div>
             </div>`;
           cuilsAgregados.appendChild(item);
+
+          let div = document.createElement("div");
+          div.classList.add("cuilDiv");
+          div.setAttribute("id", cuil.cuil);
+          div.innerHTML = `
+              <p><strong>CUIL:</strong> ${cuil.cuil}</p>
+              <p><strong>Operación:</strong> ${cuil.operacionText}</p>
+              <p><strong>Administrada:</strong> ${cuil.administradaText}</p>
+              `;
+
+          cuilsGroup.appendChild(div);
         });
 
-        $("#cuilsGroup").html("");
-        $.each(cuils, function (index, solicitud) {
-          const element = $("<a>", {
-            href: "#",
-            id: solicitud.cuil,
-            class: "list-group-item list-group-item-action",
-            "data-cuil": solicitud.cuil,
-            html: `CUIL: ${solicitud.cuil},<br> Operación: ${solicitud.operacionText},<br> Administrada: ${solicitud.administradaText}`,
+        document.querySelectorAll(".cuilDiv").forEach((div) => {
+          div.addEventListener("click", (event) => {
+            event.preventDefault(); // prevent default behavior
+            document.querySelectorAll(".cuilDiv").forEach((div) => {
+              div.classList.remove("active");
+            });
+            div.classList.add("active");
+            const found = cuils.find((el) => el.cuil === div.id);
+            cuilSeleccionado.cuil = found.cuil;
+            cuilSeleccionado.operacion = found.operacion;
+            cuilSeleccionado.operacionText = found.operacionText;
+            cuilSeleccionado.administrada = found.administrada;
+            cuilSeleccionado.administradaText = found.administradaText;
+            openModal.style.display = "block";
           });
-
-          // Añadiendo el elemento al contenedor
-          $("#cuilsGroup").append(element);
         });
 
         // les agrego agarro todos los li con la clase item para poder eliminar cada uno
         $(".btn").click(function () {
           eliminar(this);
-        });
-        $(".list-group-item").click(function () {
-          const found = cuils.find((el) => el.cuil === this.id);
-          cuilSeleccionado.cuil = found.cuil;
-          cuilSeleccionado.operacion = found.operacion;
-          cuilSeleccionado.operacionText = found.operacionText;
         });
       }
 
