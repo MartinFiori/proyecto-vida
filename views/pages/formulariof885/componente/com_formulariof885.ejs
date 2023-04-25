@@ -64,7 +64,7 @@
       role="tabpanel"
       aria-labelledby="agregarCuil-tab"
     >
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-md-3">
           <div class="form-group">
             <label for="cuil">Agregar CUIL:</label>
@@ -78,24 +78,23 @@
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group d-flex flex-column">
-            <label for="select-administrada" class="form-label"
-              >Seleccione una operación:</label
+          <div class="form-group">
+            <label for="administrada" class="form-label"
+              >Nombre administrada:</label
             >
             <select
               class="form-control"
-              id="select-administrada"
-              name="select-administrada"
+              id="administrada"
+              name="administrada"
               aria-label="Default select example"
               aria-placeholder="Seleccionar..."
             >
               <option value="default" selected>Seleccione una opción</option>
-              <option value="anulacion_alta">Anulación de alta</option>
             </select>
           </div>
         </div>
         <div class="col-md-3">
-          <div class="form-group d-flex flex-column">
+          <div class="form-group">
             <label for="operacion" class="form-label"
               >Seleccione una operación:</label
             >
@@ -119,7 +118,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 d-flex justify-content-center align-items-start">
           <button
             type="submit"
             class="btn btn-success mt-4"
@@ -129,20 +128,6 @@
           </button>
         </div>
       </div>
-
-      <!-- <div class="form-group mt-4">
-        <label for="cuil">Agregar CUIL:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="cuil"
-          name="cuil"
-          placeholder="Ingrese el CUIL"
-        />
-        <button type="submit" class="btn btn-success mt-2" id="btnAgregarCuil">
-          Agregar
-        </button>
-      </div> -->
       <div>
         <h6 id="title" style="display: block">Cuils Agregados:</h6>
         <div id="cuilsAgregados"></div>
@@ -175,7 +160,6 @@
       </div>
     </div>
   </div>
-
   <!-- Modal -->
   <div
     class="modal fade"
@@ -299,6 +283,7 @@
                   readonly
                 />
               </div>
+              <!-- no -->
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -419,12 +404,26 @@
                 </div>
                 <div class="form-group">
                   <label for="motivo_de_baja">Motivo de baja:</label>
-                  <textarea
+                  <select
                     class="form-control"
-                    id="motivo_de_baja"
-                    rows="4"
-                    value="Motivo de baja"
-                  ></textarea>
+                    id="operacion2"
+                    name="operacion2"
+                    aria-label="Default select example"
+                    aria-placeholder="Seleccionar..."
+                  >
+                    <option value="default2" selected>
+                      Seleccione una opción
+                    </option>
+                    <option value="anulacion_alta2">Anulación de alta</option>
+                    <option value="anulacion_baja2">Anulación de baja</option>
+                    <option value="modificacion_ingreso2">
+                      Modificación fecha de ingreso
+                    </option>
+                    <option value="modificacion_egreso2">
+                      Modificación fecha de egreso
+                    </option>
+                    <option value="motivo_baja2">Motivo de baja</option>
+                  </select>
                 </div>
               </form>
             </div>
@@ -445,17 +444,21 @@
   <script>
     $(document).ready(function () {
       const selectOperacion = document.getElementById("operacion"); //Nico hizo esto
+      const administradaSelected = document.getElementById("administrada"); //obtener el nuevo select
       const btnAgregarCuil = document.getElementById("btnAgregarCuil");
       const cuil = document.getElementById("cuil");
       const cuilsAgregados = document.getElementById("cuilsAgregados");
-      const openModal = document.getElementById("openModal"); //Nico hizo esto
       btnAgregarCuil.addEventListener("click", capturarDatos);
-      let cuils = [];
+      const openModal = document.getElementById("openModal"); //Nico hizo esto
       const cuilSeleccionado = {};
+      let cuils = [];
       $("#cuilsGroup").on("click", "a", function () {
+        const found = cuils.find((el) => el.cuil === $(this).data("cuil"));
         $("#cuilsGroup a").removeClass("active");
-        $(this).addClass("active");
-        openModal.style.display = "block"; //Nico hizo esto
+        // $(this).addClass("active");
+        console.log(document.getElementById(`${found.cuil}`));
+        document.getElementById(`${found.cuil}`).classList.add("active");
+        openModal.style.display = "block";
       });
 
       $("#openModal").click(function () {
@@ -468,10 +471,14 @@
         // me fijo si se encuentra el nuevo CUIL ingresado en el array
         const exists = cuils.find((el) => el.cuil === cuil.value);
         // validaciones
-        if (!validarCuil()) {
+        if (!validarCuil(cuil.value)) {
           alert(
             "Por favor, ingrese el cuil con el siguiente formato XX-XXXXXXXX-X"
           );
+          return;
+        }
+        if (administrada.value === "default") {
+          alert("Por favor seleccione una Administrada para continuar");
           return;
         }
         if (operacion.value === "default") {
@@ -483,19 +490,23 @@
           return;
         }
         // si el cuil es único lo pusheo al array y limpio el input
-        let operacionSeleccionada =
+        const operacionSeleccionada =
           selectOperacion.options[selectOperacion.selectedIndex].text; //Nico hizo esto (captura la operacion seleccionada en ese momento)
+        const administradaSeleccionada =
+          administradaSelected.options[administradaSelected.selectedIndex].text;
         cuils.push({
           cuil: cuil.value,
           operacion: $("#operacion").val(),
           operacionText: operacionSeleccionada,
+          administrada: $("#administrada").val(),
+          administradaText: administradaSeleccionada,
         }); //Nico hizo esto
         $("#operacion").val("default");
+        $("#administrada").val("default");
         cuil.value = "";
         mostrarDatos();
         openModal.style.display = "none"; //Nico hizo esto
       }
-
       // funcion para mostrar los datos en el html
       function mostrarDatos() {
         EditarCuils();
@@ -505,7 +516,18 @@
           let item = document.createElement("li");
           item.classList.add("item");
           item.setAttribute("id", cuil.cuil);
-          item.innerHTML = `CUIL: ${cuil.cuil} <br> Operación: ${cuil.operacionText}<button class="btn btn-danger m-2" id=${cuil.cuil}>&times;</button> <br>`;
+          // item.innerHTML = `CUIL: ${cuil.cuil}, <br> Operación: ${cuil.operacionText},<br> Admistrada: ${cuil.administradaText} <button class="btn btn-danger m-2" id=${cuil.cuil}>&times;</button> <br>`;
+          item.innerHTML = `
+            <div class="card mb-2">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>${cuil.cuil}</h5>
+                <button class="btn btn-danger m-2" id=${cuil.cuil}>&times;</button>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><strong>Operación:</strong> ${cuil.operacionText}</p>
+                <p class="card-text"><strong>Administrada:</strong> ${cuil.administradaText}</p>
+              </div>
+            </div>`;
           cuilsAgregados.appendChild(item);
         });
 
@@ -513,10 +535,10 @@
         $.each(cuils, function (index, solicitud) {
           const element = $("<a>", {
             href: "#",
-            class: "list-group-item list-group-item-action",
             id: solicitud.cuil,
-            "data-operacion": solicitud.operacion,
-            text: `CUIL: ${solicitud.cuil}, Operación: ${solicitud.operacionText}`,
+            class: "list-group-item list-group-item-action",
+            "data-cuil": solicitud.cuil,
+            html: `CUIL: ${solicitud.cuil},<br> Operación: ${solicitud.operacionText},<br> Administrada: ${solicitud.administradaText}`,
           });
 
           // Añadiendo el elemento al contenedor
@@ -527,12 +549,6 @@
         $(".btn").click(function () {
           eliminar(this);
         });
-        $(".list-group-item").click(function () {
-          const found = cuils.find((el) => el.cuil === this.id);
-          cuilSeleccionado.cuil = found.cuil;
-          cuilSeleccionado.operacion = found.operacion;
-          cuilSeleccionado.operacionText = found.operacionText;
-        });
       }
 
       // elimina el item de la lista segun el id del elemento html
@@ -542,18 +558,66 @@
       }
 
       // chequeo que el cuil me llegue en el formato correcto
-      function validarCuil() {
+      function validarCuil(cuil) {
         let cuilRegex = /^\d{2}-\d{8}-\d{1}$/;
-        return cuilRegex.test(cuil.value);
+        return cuilRegex.test(cuil);
       }
+
+      //Nico trabaja por aca//
+      const editarCuilsTab = document.getElementById("editarCuils-tab");
 
       function EditarCuils() {
         // funcion que habilita la seccion de editar cuils si hay o no algo en el array de los cuils
-        cuils.length
-          ? $("#editarCuils-tab").show()
-          : $("#editarCuils-tab").hide();
+        editarCuilsTab.style.display = cuils.length ? "block" : "none";
       }
       EditarCuils();
+      const administradas = [
+        {
+          id: "30-71459533-0",
+          text: "Gestion Agricola S.A.",
+          value: "gestion_agricola",
+        },
+        {
+          id: "30-71162186-1",
+          text: "Gestion Alimentos S.A.",
+          value: "gestion_alimentos",
+        },
+        {
+          id: "30-71539433-9",
+          text: "Gestion Estiba S.A.",
+          value: "gestion_estiba",
+        },
+        {
+          id: "30-71550412-6",
+          text: "Gestion Global S.A.",
+          value: "gestion_global",
+        },
+        {
+          id: "30-70787281-7",
+          text: "Gestion Integral S.A.",
+          value: "gestion_integral",
+        },
+        {
+          id: "30-69323148-1",
+          text: "Gestion Laboral S.A.",
+          value: "gestion_laboral",
+        },
+        {
+          id: "30-71086059-1",
+          text: "Gestion Laboral S.A.",
+          value: "gestion_laboral",
+        },
+      ];
+
+      function pintarSelect() {
+        administradas.forEach((el) => {
+          const options = document.createElement("option");
+          options.setAttribute("value", el.value);
+          options.innerHTML = el.text + " " + el.id;
+          document.getElementById("administrada").appendChild(options);
+        });
+      }
+      pintarSelect();
     });
   </script>
 </div>
