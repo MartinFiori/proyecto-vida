@@ -515,7 +515,7 @@
           operacionText: operacionSeleccionada,
           administrada: $("#administrada").val(),
           administradaText: administradaSeleccionada,
-          cantidad: Math.ceil(Math.random() * 4), //  ESTA ES LA CANTIDAD RANDOM DE BURBUJAS QUE VAN A APARECER EN EL TÍTULO (Supongo que en algún futuro va a ser un array)
+          cantidad: Array.from(Array(Math.ceil(Math.random() * 3)).fill()), //  ESTA ES LA CANTIDAD RANDOM DE BURBUJAS QUE VAN A APARECER EN EL TÍTULO (ahora es un array con una cantidad random de undefined)
         }); //Nico hizo esto
         $("#operacion").val("default");
         $("#administrada").val("default");
