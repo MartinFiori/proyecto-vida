@@ -425,11 +425,11 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="operacion_edit">Motivo de baja:</label>
+                  <label for="motivo_baja_edit">Motivo de baja:</label>
                   <select
                     class="form-control"
-                    id="operacion_edit"
-                    name="operacion_edit"
+                    id="motivo_baja_edit"
+                    name="motivo_baja_edit"
                     aria-label="Default select example"
                     aria-placeholder="Seleccionar..."
                   >
@@ -444,7 +444,6 @@
                     <option value="modificacion_egreso2">
                       Modificación fecha de egreso
                     </option>
-                    <option value="motivo_baja2">Motivo de baja</option>
                   </select>
                 </div>
               </form>
@@ -477,6 +476,7 @@
       let cuils = [];
 
       $("#openModal").click(function () {
+        bloquearInputs(cuilSeleccionado);
         $("#myModal").modal("show");
         openModal.style.display = "none";
       });
@@ -515,6 +515,7 @@
           operacionText: operacionSeleccionada,
           administrada: $("#administrada").val(),
           administradaText: administradaSeleccionada,
+          cantidad: Math.ceil(Math.random() * 4), //  ESTA ES LA CANTIDAD RANDOM DE BURBUJAS QUE VAN A APARECER EN EL TÍTULO (Supongo que en algún futuro va a ser un array)
         }); //Nico hizo esto
         $("#operacion").val("default");
         $("#administrada").val("default");
@@ -522,12 +523,9 @@
         mostrarDatos();
         openModal.style.display = "none"; //Nico hizo esto
       }
-      //document.getElementById('fecha_fin').readOnly = true funcion para mostrar los datos en el html
       $(document).ready(() => {
         $("#fecha_fin").prop("readonly", true);
       });
-
-      // Establecer el campo como de solo lectura
 
       function mostrarDatos() {
         EditarCuils();
@@ -538,7 +536,6 @@
           let item = document.createElement("li");
           item.classList.add("item");
           item.setAttribute("id", cuil.cuil);
-          // item.innerHTML = `CUIL: ${cuil.cuil}, <br> Operación: ${cuil.operacionText},<br> Admistrada: ${cuil.administradaText} <button class="btn btn-danger m-2" id=${cuil.cuil}>&times;</button> <br>`;
           item.innerHTML = `
             <div class="card mb-2">
               <div class="card-header d-flex justify-content-between align-items-center">
@@ -654,6 +651,26 @@
         });
       }
       pintarSelect();
+      function bloquearInputs(cuilSeleccionado) {
+        // este código es para saber CUANDO queremos que el input sea readOnly
+        const { operacion } = cuilSeleccionado;
+        const anulaciones =
+          operacion === "anulacion_baja" || operacion === "anulacion_alta";
+        const modificacion_ingreso = operacion === "modificacion_ingreso";
+        const modificacion_egreso = operacion === "modificacion_egreso";
+        const motivo_baja = operacion === "motivo_baja";
+        const condiciones = {
+          fecha_inicio_edit: anulaciones || modificacion_egreso || motivo_baja,
+          fecha_fin_edit: anulaciones || modificacion_ingreso || motivo_baja,
+          motivo_baja_edit:
+            anulaciones || modificacion_ingreso || modificacion_egreso,
+        };
+        document.getElementById("fecha_inicio_edit").readOnly =
+          condiciones.fecha_inicio_edit;
+        document.getElementById("fecha_fin_edit").readOnly =
+          condiciones.fecha_fin_edit;
+        $("#motivo_baja_edit").prop("disabled", condiciones.motivo_baja_edit);
+      }
     });
   </script>
 </div>
