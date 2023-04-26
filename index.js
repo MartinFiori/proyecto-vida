@@ -51,6 +51,9 @@ router.get("/cargaDeUsuarioAFIP", function (req, res) {
 router.get("/formulariof885", (req, res) => {
   res.render("./pages/formulariof885/formulariof885.ejs");
 });
+router.get("/prueba", (req, res) => {
+  res.render("./pages/prueba/prueba.ejs");
+});
 
 server.listen(port, () => {
   console.log(`Servidor working en puerto ${port}`);

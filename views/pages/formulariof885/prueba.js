@@ -1,1 +1,0 @@
-$("#prueba").modal("show");
