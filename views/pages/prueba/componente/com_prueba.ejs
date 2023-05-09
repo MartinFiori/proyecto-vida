@@ -406,19 +406,14 @@
                     <div class="col-2">
                       <div class="form-group d-flex flex-column">
                         <label for="lugar_pago">Lugar de pago</label>
-                        <input
-                          type="text"
-                          class="tamanoTexto form-control"
-                          id="lugar_pago"
-                          aria-describedby="lugar_pago"
-                        />
+                        <select name="lugar_pago" id="lugar_pago">
+                          <option value="default">Seleccione una opción</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-2">
                       <div class="form-group d-flex flex-column">
-                        <label for="forma_liquidacion"
-                          >Forma de liquidación</label
-                        >
+                        <label for="forma_liquidacion">Modalidad de Pago</label>
                         <input
                           type="text"
                           class="tamanoTexto form-control"
@@ -431,7 +426,7 @@
                       <div class="form-group d-flex flex-column">
                         <label for="centro_costo">Centro de costo</label>
                         <input
-                          type="text"
+                          type="checkbox"
                           class="tamanoTexto form-control"
                           id="centro_costo"
                           aria-describedby="centro_costo"
@@ -565,6 +560,26 @@
 </div>
 
 <script>
+  $(document).ready(() => {
+    var lugares = [
+      "ciudad 1",
+      "ciudad 2",
+      "Capital",
+      "Barrios",
+      "Barrios ocultos",
+      "lanzone",
+    ];
+    for (let i = 0; i < lugares.length; i++) {
+      $("#lugar_pago").append(
+        `<option value="${lugares[i]}"> ${lugares[i]}</option>`
+      );
+    }
+    $("#lugar_pago").select2({
+      data: lugares.map(function (f) {
+        return { id: f, text: f };
+      }),
+    });
+  });
   $("#btnPrueba").click(function () {
     $("#modalPrueba").modal("show");
   });
