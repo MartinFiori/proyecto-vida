@@ -50,6 +50,23 @@
     background-color: #007bff;
     border-color: #007bff;
   }
+  .moreInf {
+    display: inline-block;
+    font-size: 16px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .moreInf p {
+    margin-bottom: 0;
+  }
+  .moreInf.active {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
 </style>
 
 <div class="container mt-5">
@@ -195,6 +212,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="myModalLabel">Título del modal</h4>
+          <div id="datos_adicionalesCuil"></div>
           <button
             type="button"
             class="close"
@@ -477,6 +495,7 @@
 
       $("#openModal").click(function () {
         bloquearInputs(cuilSeleccionado);
+        mostrarConsultasLaborales(cuilSeleccionado);
         $("#myModal").modal("show");
         openModal.style.display = "none";
       });
@@ -523,6 +542,9 @@
         mostrarDatos();
         openModal.style.display = "none"; //Nico hizo esto
       }
+      $(document).ready(() => {
+        $("#fecha_fin").prop("readonly", true);
+      });
 
       function mostrarDatos() {
         EditarCuils();
@@ -571,6 +593,7 @@
             cuilSeleccionado.operacionText = found.operacionText;
             cuilSeleccionado.administrada = found.administrada;
             cuilSeleccionado.administradaText = found.administradaText;
+            cuilSeleccionado.cantidad = found.cantidad;
             openModal.style.display = "block";
           });
         });
@@ -638,7 +661,6 @@
           value: "gestion_laboral",
         },
       ];
-
       function pintarSelect() {
         administradas.forEach((el) => {
           const options = document.createElement("option");
@@ -667,6 +689,28 @@
         document.getElementById("fecha_fin_edit").readOnly =
           condiciones.fecha_fin_edit;
         $("#motivo_baja_edit").prop("disabled", condiciones.motivo_baja_edit);
+      }
+
+      const datosCuil = document.getElementById("datos_adicionalesCuil");
+      function mostrarConsultasLaborales(cuilSeleccionado) {
+        datosCuil.innerText = "";
+        const { cantidad } = cuilSeleccionado;
+        cantidad.forEach((cant) => {
+          newList = document.createElement("div");
+          newList.classList.add("moreInf");
+          newList.setAttribute("id", cuilSeleccionado.cuil);
+          newList.innerHTML = `<p><strong>Operación:</strong> ${cant}</p>`;
+          datosCuil.appendChild(newList);
+        });
+        document.querySelectorAll(".moreInf").forEach((newList) => {
+          newList.addEventListener("click", (event) => {
+            event.preventDefault();
+            document.querySelectorAll(".moreInf").forEach((newList) => {
+              newList.classList.remove("active");
+            });
+            newList.classList.add("active");
+          });
+        });
       }
     });
   </script>
