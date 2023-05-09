@@ -406,7 +406,11 @@
                     <div class="col-2">
                       <div class="form-group d-flex flex-column">
                         <label for="lugar_pago">Lugar de pago</label>
-                        <select name="lugar_pago" id="lugar_pago">
+                        <select
+                          name="lugar_pago"
+                          class="form-control"
+                          id="lugar_pago"
+                        >
                           <option value="default">Seleccione una opción</option>
                         </select>
                       </div>
@@ -414,12 +418,15 @@
                     <div class="col-2">
                       <div class="form-group d-flex flex-column">
                         <label for="forma_liquidacion">Modalidad de Pago</label>
-                        <input
-                          type="text"
-                          class="tamanoTexto form-control"
+                        <select
+                          name="forma_liquidacion"
+                          class="form-control"
                           id="forma_liquidacion"
-                          aria-describedby="forma_liquidacion"
-                        />
+                        >
+                          <option value="default">Seleccione una opcion</option>
+                          <option value="mensual_select">Mensual</option>
+                          <option value="quincenal_select">Quincenal</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-2">
