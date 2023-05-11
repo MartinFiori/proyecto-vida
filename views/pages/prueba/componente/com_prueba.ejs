@@ -804,7 +804,7 @@
 					if (typeof data.respuesta[i] == "string") {
 						$("#lugar_pago").append(
 							`<option value="${
-								data.respuesta[i].LugNom
+								data.respuesta[i].LugNro
 							}"> ${JSON.stringify(
 								data.respuesta[i].LugNom
 							)}</option>`
@@ -823,5 +823,5 @@
 		// }).catch(function (error) {
 		//   console.error(error);
 		// });
-	});
+	}); //cierrre document
 </script>
